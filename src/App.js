@@ -1,26 +1,47 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import { Route, Switch } from "react-router-dom";
+import NavBar from "./components/layout/Navbar/Navbar";
+import Dashboard from "./components/dashboard/Dashboard";
+import CityDetail from "./components/projects/CityDetail/cityDetail";
+import SignIn from "./components/auth/SignIn/SignIn";
+import SignUp from "./components/auth/SignUp/SignUp";
+import AddComplain from "./components/Cities/AddComplain/addComplain";
+import firebase from "./config/firebaseConfig";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  state = {
+    email: "",
+    password: "",
+    user: "",
+  };
+  longin = (e) => {
+    e.preventDefault();
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(this.state.email, this.state.password)
+      .then((user) => {
+        console.log(user);
+      });
+  };
+  handleOnChangeEmail = (e) => {
+    this.setState({ email: e.target.value });
+  };
+  handleOnChangePassword = (e) => {
+    this.setState({ password: e.target.value });
+  };
+  render() {
+    return (
+      <div className="App">
+        <NavBar />
+        <Switch>
+          <Route path="/" exact component={Dashboard} />
+          <Route path="/project/:id" component={CityDetail} />
+          <Route path="/Signin" component={SignIn} />
+          <Route path="/Signup" component={SignUp} />
+          <Route path="/addComplain" component={AddComplain} />
+        </Switch>
+      </div>
+    );
+  }
 }
-
 export default App;
