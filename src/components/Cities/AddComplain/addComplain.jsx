@@ -1,25 +1,34 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { addComplain } from "../../../store/actions/addComplainAction";
 
-class CreateProject extends Component {
+class AddComplain extends Component {
   state = {
-    ComplainCity: "",
-    ComplainType: "",
-    ComlainTitle: "",
+    city: "",
+    complainType: "",
+    title: "",
     content: "",
   };
-  handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(this.state);
+
+  onCreateCity = (e) => {
+    this.setState({ city: e.target.value });
   };
 
   onCreateType = (e) => {
-    this.setState({ ComplainType: e.target.value });
+    this.setState({ complainType: e.target.value });
   };
   onCreateTitle = (e) => {
-    this.setState({ ComlainTitle: e.target.value });
+    this.setState({ title: e.target.value });
   };
   onCreateContent = (e) => {
     this.setState({ content: e.target.value });
+  };
+
+  handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(this.state);
+
+    this.props.addComplains(this.state);
   };
 
   render() {
@@ -32,7 +41,7 @@ class CreateProject extends Component {
             <input
               type="text"
               id="city_text"
-              onChange={this.onCreateTitle}
+              onChange={this.onCreateCity}
             ></input>
           </div>
           <div className="input-field">
@@ -40,7 +49,7 @@ class CreateProject extends Component {
             <input
               type="text"
               id="type_text"
-              onChange={this.onCreateTitle}
+              onChange={this.onCreateType}
             ></input>
           </div>
           <div className="input-field">
@@ -68,4 +77,10 @@ class CreateProject extends Component {
     );
   }
 }
-export default CreateProject;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addComplains: (complain) => dispatch(addComplain(complain)),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(AddComplain);

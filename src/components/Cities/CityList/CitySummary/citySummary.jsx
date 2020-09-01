@@ -14,14 +14,14 @@ const styles = () => ({
 });
 
 const CitySummary = (props) => {
-  const { classes, project } = props;
+  const { classes, city } = props;
   return (
     <div className={classes.Cards}>
       <div className="card-content gray-text text-darken-3">
         <Link className="card-title" to="/complainList">
-          <h3>{project.title}</h3>
+          <h3>{city.title}</h3>
         </Link>
-        <p>{project.content}</p>
+        <p>{city.content}</p>
         <p className="grey-text">23 Aug, 1 AM</p>
       </div>
     </div>

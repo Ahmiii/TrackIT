@@ -1,41 +1,37 @@
 import React, { Component } from "react";
-import firebase from "../../../config/firebaseConfig";
+import { connect } from "react-redux";
+import { signUp } from "../../../store/actions/authActions";
 
 class SingUp extends Component {
-  // state = {
-  //   firstname: "",
-  //   lastname: "",
-  //   email: "",
-  //   password: "",
-  // };
-  // handleOnChangeFirstName = (e) => {
-  //   this.setState({ firstname: e.target.value });
-  // };
-  // handleOnChangeLastName = (e) => {
-  //   this.setState({ lastname: e.target.value });
-  // };
-  // handleOnChangeEmail = (e) => {
-  //   this.setState({ email: e.target.value });
-  // };
-  // handleOnChangePassword = (e) => {
-  //   this.setState({ password: e.target.value });
-  // };
-  // signup = (e) => {
-  //   e.preventDefault();
-  //   firebase
-  //     .auth()
-  //     .createUserWithEmailAndPassword(this.state.email, this.state.password)
-  //     .then((user) => {
-  //       console.log(user);
-  //     });
-  //   this.props.history.push("/Signin");
-  // };
+  state = {
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+  };
+  handleOnChangeFirstName = (e) => {
+    this.setState({ firstName: e.target.value });
+  };
+  handleOnChangeLastName = (e) => {
+    this.setState({ lastName: e.target.value });
+  };
+  handleOnChangeEmail = (e) => {
+    this.setState({ email: e.target.value });
+  };
+  handleOnChangePassword = (e) => {
+    this.setState({ password: e.target.value });
+  };
+  onSubmitHandler = (e) => {
+    e.preventDefault();
+    console.log(this.state);
+    this.props.signUp(this.state);
+  };
 
   render() {
     return (
       <div className="container">
-        <form onSubmit={this.signup} className="white">
-          <h5 className="gray-text text-darken-3">SingIn</h5>
+        <form onSubmit={this.onSubmitHandler} className="white">
+          <h5 className="gray-text text-darken-3">SingUp</h5>
           <div className="input-field">
             <label>Firstname</label>
             <input
@@ -70,11 +66,18 @@ class SingUp extends Component {
             ></input>
           </div>
           <div className="input-field">
-            <button className="btn gray lighten-1 z-depth-0">Login</button>
+            <button className="btn gray lighten-1 z-depth-0">SingUp</button>
           </div>
         </form>
       </div>
     );
   }
 }
-export default SingUp;
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    signUp: (addUser) => dispatch(signUp(addUser)),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(SingUp);

@@ -1,19 +1,31 @@
 import React, { Component } from "react";
-
+import { connect } from "react-redux";
+import { signIn } from "../../../store/actions/authActions";
 class SignIn extends Component {
+  state = {
+    email: "",
+    password: "",
+  };
+
+  handleEmail = (e) => {
+    this.setState({ email: e.target.value });
+  };
+  handlePassword = (e) => {
+    this.setState({ password: e.target.value });
+  };
+  loggingIn = (e) => {
+    e.preventDefault();
+    this.props.signIn(this.state);
+  };
   render() {
-    console.log(this.props);
+    const { authenticationError } = this.props;
     return (
       <div className="container">
-        <form onSubmit={this.props.loggingIn} className="white">
+        <form onSubmit={this.loggingIn} className="white">
           <h5 className="gray-text text-darken-3">SingIn</h5>
           <div className="input-field">
             <label>Email</label>
-            <input
-              type="Email"
-              id="email"
-              onChange={this.props.handleEmail}
-            ></input>
+            <input type="Email" id="email" onChange={this.handleEmail}></input>
           </div>
 
           <div className="input-field">
@@ -21,15 +33,30 @@ class SignIn extends Component {
             <input
               type="Password"
               id="password"
-              onChange={this.props.handlePassword}
+              onChange={this.handlePassword}
             ></input>
           </div>
           <div className="input-field">
             <button className="btn gray lighten-1 z-depth-0">Login</button>
+            <div className="red-text center">
+              {authenticationError ? <p>{authenticationError}</p> : null}
+            </div>
           </div>
         </form>
       </div>
     );
   }
 }
-export default SignIn;
+
+const mapStateToProps = (state) => {
+  return {
+    authenticationError: state.auth.authenticationError,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    signIn: (credential) => dispatch(signIn(credential)),
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn);

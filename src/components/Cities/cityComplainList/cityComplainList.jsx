@@ -1,6 +1,6 @@
 import React from "react";
 
-const ProjectDetail = () => {
+const complainList = () => {
   return (
     <div className="container section project-detail">
       <div className="card z-depth-0">
@@ -16,4 +16,4 @@ const ProjectDetail = () => {
     </div>
   );
 };
-export default ProjectDetail;
+export default complainList;
