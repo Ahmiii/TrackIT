@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { addComplain } from "../../../store/actions/addComplainAction";
+import { Redirect } from "react-router-dom";
 
 class AddComplain extends Component {
   state = {
@@ -32,6 +33,12 @@ class AddComplain extends Component {
   };
 
   render() {
+    const { authentication } = this.props;
+
+    if (!authentication.uid) {
+      return <Redirect to="/Signin" />;
+    }
+
     return (
       <div className="container">
         <form onSubmit={this.handleSubmit} className="white">
@@ -77,10 +84,17 @@ class AddComplain extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    authentication: state.firebase.auth,
+  };
+};
+
 const mapDispatchToProps = (dispatch) => {
   return {
     addComplains: (complain) => dispatch(addComplain(complain)),
   };
 };
 
-export default connect(null, mapDispatchToProps)(AddComplain);
+export default connect(mapStateToProps, mapDispatchToProps)(AddComplain);
