@@ -24,7 +24,6 @@ class SingUp extends Component {
   };
   onSubmitHandler = (e) => {
     e.preventDefault();
-    console.log(this.state);
     this.props.signUp(this.state);
   };
 

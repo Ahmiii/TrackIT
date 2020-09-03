@@ -9,6 +9,7 @@ class AddComplain extends Component {
     complainType: "",
     title: "",
     content: "",
+    status: false,
   };
 
   onCreateCity = (e) => {
@@ -27,7 +28,6 @@ class AddComplain extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    console.log(this.state);
 
     this.props.addComplains(this.state);
     this.props.history.push("/");

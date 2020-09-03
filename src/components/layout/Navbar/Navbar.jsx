@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 class navBar extends Component {
   render() {
     const { authentication } = this.props;
-    console.log(authentication);
+
     let links = "";
     if (authentication.uid) {
       links = <SingInlinks />;
@@ -28,7 +28,6 @@ class navBar extends Component {
   }
 }
 const mapStateToProps = (state) => {
-  console.log(state);
   return {
     authentication: state.firebase.auth,
   };
