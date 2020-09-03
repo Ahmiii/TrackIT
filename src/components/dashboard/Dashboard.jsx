@@ -7,7 +7,7 @@ import { firestoreConnect } from "react-redux-firebase";
 
 class Dashboard extends Component {
   render() {
-    console.log(this.props);
+    //console.log(this.props);
     const { Cities } = this.props;
     //console.log(Cities);
     return (
@@ -25,12 +25,9 @@ class Dashboard extends Component {
   }
 }
 const mapStateToProps = (state) => {
-  //console.log(state);
+  console.log(state);
   return {
     Cities: state.complain.complainCities,
   };
 };
-export default compose(
-  firestoreConnect(["Complains"]),
-  connect(mapStateToProps)
-)(Dashboard);
+export default connect(mapStateToProps)(Dashboard);
