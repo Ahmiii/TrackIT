@@ -18,7 +18,7 @@ const CitySummary = (props) => {
   return (
     <div className={classes.Cards}>
       <div className="card-content gray-text text-darken-3">
-        <Link className="card-title" to="/complainList">
+        <Link className="card-title" to="/city/:title">
           <h3>{city.title}</h3>
         </Link>
         <p>{city.content}</p>

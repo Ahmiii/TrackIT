@@ -30,6 +30,7 @@ class AddComplain extends Component {
     console.log(this.state);
 
     this.props.addComplains(this.state);
+    this.props.history.push("/");
   };
 
   render() {

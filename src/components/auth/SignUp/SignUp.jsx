@@ -29,7 +29,7 @@ class SingUp extends Component {
   };
 
   render() {
-    const { authenticatioin } = this.props;
+    const { authenticatioin, authenticationError } = this.props;
     if (authenticatioin.uid) {
       return <Redirect to="/" />;
     }
@@ -72,6 +72,9 @@ class SingUp extends Component {
           </div>
           <div className="input-field">
             <button className="btn gray lighten-1 z-depth-0">SingUp</button>
+            <div className="red-text center">
+              {authenticationError ? <p>{authenticationError}</p> : null}
+            </div>
           </div>
         </form>
       </div>
@@ -82,6 +85,7 @@ class SingUp extends Component {
 const mapStateToProps = (state) => {
   return {
     authenticatioin: state.firebase.auth,
+    authenticationError: state.auth.authenticationError,
   };
 };
 
