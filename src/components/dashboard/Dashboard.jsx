@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import CityList from "../Cities/CityList/citylist";
 import Notification from "./Notification/Notifications";
 import { connect } from "react-redux";
-import { compose } from "redux";
-import { firestoreConnect } from "react-redux-firebase";
 
 class Dashboard extends Component {
   render() {
