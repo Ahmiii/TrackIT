@@ -14,7 +14,7 @@ const SingInlinks = (props) => {
         </li>
         <li>
           <NavLink to="/" className="btn btn-floating pink lighten-1">
-            AF
+            {props.profileData.initials}{" "}
           </NavLink>
         </li>
       </ul>

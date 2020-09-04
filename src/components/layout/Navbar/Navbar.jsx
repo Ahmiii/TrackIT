@@ -5,11 +5,11 @@ import SingOutLinks from "./SingOutlink";
 import { connect } from "react-redux";
 class navBar extends Component {
   render() {
-    const { authentication } = this.props;
+    const { authentication, profileData } = this.props;
 
     let links = "";
     if (authentication.uid) {
-      links = <SingInlinks />;
+      links = <SingInlinks profileData={profileData} />;
     } else {
       links = <SingOutLinks />;
     }
@@ -30,6 +30,7 @@ class navBar extends Component {
 const mapStateToProps = (state) => {
   return {
     authentication: state.firebase.auth,
+    profileData: state.firebase.profile,
   };
 };
 
