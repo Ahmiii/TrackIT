@@ -9,7 +9,7 @@ class AddComplain extends Component {
     complainType: "",
     title: "",
     content: "",
-    status: false,
+    status: "Submitted",
   };
 
   onCreateCity = (e) => {

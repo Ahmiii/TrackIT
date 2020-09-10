@@ -1,11 +1,10 @@
 import React from "react";
 
 const compalinSummary = (props) => {
-  console.log(props.compalinlist);
   return (
     <div className="container section project-detail">
       <div className="row">
-        <div className="col s12">
+        <div className="s12 m4 l8">
           <div className="card z-depth-0">
             <div className="card-content">
               <p>{props.compalinlist.content}</p>
@@ -27,8 +26,20 @@ const compalinSummary = (props) => {
             </div>
           </div>
         </div>
-        <div className="col s12 m5 offset-m1">
-          <p>{props.compalinlist.status}</p>
+        <div className="s12 m4 l2">
+          <div className="card z-depth-0">
+            {/* <div className="card-content"> */}
+            <label>Applicatin Status</label>
+            {props.credientials.uid ? (
+              <select onChange={() => {}} style={{ display: "block" }}>
+                <option value="Issue Resolved">Issue Resolved</option>
+              </select>
+            ) : (
+              <p>{props.compalinlist.status}</p>
+            )}
+
+            {/* </div> */}
+          </div>
         </div>
       </div>
     </div>
