@@ -14,12 +14,10 @@ class AddComplain extends Component {
 
   onCreateCity = (e) => {
     this.setState({ city: e.target.value });
-    console.log(this.state.city);
   };
 
   onCreateType = (e) => {
     this.setState({ complainType: e.target.value });
-    console.log(this.state.complainType);
   };
   onCreateTitle = (e) => {
     this.setState({ title: e.target.value });
@@ -37,7 +35,7 @@ class AddComplain extends Component {
 
   render() {
     const { authentication, Cities } = this.props;
-    console.log({ Cities });
+
     if (!authentication.uid) {
       return <Redirect to="/Signin" />;
     }
@@ -71,7 +69,7 @@ class AddComplain extends Component {
 
           <div style={{ paddingTop: "10px" }}>
             <label>Complain Type</label>
-            <select style={{ display: "block" }}>
+            <select onChange={this.onCreateType} style={{ display: "block" }}>
               <option value="">Select Complain Type</option>
               {complainTypes.map((type) => {
                 return <option value={type}>{type}</option>;
