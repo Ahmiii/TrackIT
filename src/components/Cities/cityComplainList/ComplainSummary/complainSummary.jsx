@@ -33,6 +33,7 @@ const compalinSummary = (props) => {
             {props.credientials.uid ? (
               <select onChange={() => {}} style={{ display: "block" }}>
                 <option value="Issue Resolved">Issue Resolved</option>
+                <option value="Issue Resolved">Issue Resolved</option>
               </select>
             ) : (
               <p>{props.compalinlist.status}</p>
