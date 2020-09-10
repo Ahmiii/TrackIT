@@ -14,10 +14,12 @@ class AddComplain extends Component {
 
   onCreateCity = (e) => {
     this.setState({ city: e.target.value });
+    console.log(this.state.city);
   };
 
   onCreateType = (e) => {
     this.setState({ complainType: e.target.value });
+    console.log(this.state.complainType);
   };
   onCreateTitle = (e) => {
     this.setState({ title: e.target.value });
@@ -35,30 +37,52 @@ class AddComplain extends Component {
 
   render() {
     const { authentication, Cities } = this.props;
-
+    console.log({ Cities });
     if (!authentication.uid) {
       return <Redirect to="/Signin" />;
     }
+
+    const complainTypes = ["Complaint", "Crime Report", "Missing Report"];
 
     return (
       <div className="container">
         <form onSubmit={this.handleSubmit} className="white">
           <h5 className="gray-text text-darken-3">Add Complain</h5>
-          <div className="input-field">
-            <label>City</label>
-            <input
+          <label>City</label>
+
+          <select onChange={this.onCreateCity} style={{ display: "block" }}>
+            <option value="">Select City</option>
+            {Cities.map((city, index) => {
+              return (
+                <option
+                  //selected={index === 0 ? "selected" : ""}
+                  value={city.title}
+                >
+                  {city.title}
+                </option>
+              );
+            })}
+          </select>
+          {/* <input
               type="text"
               id="city_text"
               onChange={this.onCreateCity}
-            ></input>
-          </div>
-          <div className="input-field">
+            ></input> */}
+
+          <div style={{ paddingTop: "10px" }}>
             <label>Complain Type</label>
-            <input
+            <select style={{ display: "block" }}>
+              <option value="">Select Complain Type</option>
+              {complainTypes.map((type) => {
+                return <option value={type}>{type}</option>;
+              })}
+            </select>
+
+            {/* <input
               type="text"
               id="type_text"
               onChange={this.onCreateType}
-            ></input>
+            ></input> */}
           </div>
           <div className="input-field">
             <label>Title</label>
