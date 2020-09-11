@@ -8,8 +8,7 @@ const ComplainList = (props) => {
   const cityName = props.match.params.title;
 
   const complainList = props.complains;
-  const auth = props.authentication;
-  console.log({ auth });
+  const profiledata = props.profileData;
 
   return (
     <div className="container section project-detail">
@@ -21,7 +20,7 @@ const ComplainList = (props) => {
               if (list.city === cityName) {
                 return (
                   <ComplainSummary
-                    credientials={auth}
+                    userCredential={profiledata}
                     compalinlist={list}
                     key={list.id}
                   />
@@ -37,7 +36,7 @@ const ComplainList = (props) => {
 const mapStateToProps = (state) => {
   return {
     complains: state.firestore.ordered.Complains,
-    authentication: state.firebase.auth,
+    profileData: state.firebase.profile,
   };
 };
 export default compose(

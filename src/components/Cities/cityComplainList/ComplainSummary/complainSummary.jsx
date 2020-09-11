@@ -1,6 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 
-const compalinSummary = (props) => {
+const CompalinSummary = (props) => {
+  const [updatedStatus, setupdatedStatus] = useState(props.compalinlist.status);
+  const id = props.compalinlist.id;
+
+  const onStatusUpdate = (e) => {
+    e.preventDefault();
+    setupdatedStatus(e.target.value);
+    console.log(id);
+  };
   return (
     <div className="container section project-detail">
       <div className="row">
@@ -30,10 +38,10 @@ const compalinSummary = (props) => {
           <div className="card z-depth-0">
             {/* <div className="card-content"> */}
             <label>Applicatin Status</label>
-            {props.credientials.uid ? (
-              <select onChange={() => {}} style={{ display: "block" }}>
+            {props.userCredential.userCategory === "admin" ? (
+              <select onChange={onStatusUpdate} style={{ display: "block" }}>
                 <option value="Issue Resolved">Issue Resolved</option>
-                <option value="Issue Resolved">Issue Resolved</option>
+                <option value="In Progress">In Progres</option>
               </select>
             ) : (
               <p>{props.compalinlist.status}</p>
@@ -47,4 +55,4 @@ const compalinSummary = (props) => {
   );
 };
 
-export default compalinSummary;
+export default CompalinSummary;

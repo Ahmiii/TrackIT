@@ -109,7 +109,6 @@ class AddComplain extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state);
   return {
     Cities: state.complain.complainCities,
     authentication: state.firebase.auth,
