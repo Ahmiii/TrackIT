@@ -34,7 +34,7 @@ export const signUp = (addUser) => {
       .auth()
       .createUserWithEmailAndPassword(addUser.email, addUser.password)
       .then((responce) => {
-        return firestore
+        firestore
           .collection("users")
           .doc(responce.user.uid)
           .set({
@@ -48,6 +48,33 @@ export const signUp = (addUser) => {
       })
       .catch((error) => {
         dispatch({ type: "SIGNUP_FAILED", error });
+      });
+  };
+};
+export const signUpWithAdmin = (addUser) => {
+  return (dispatch, getState, { getFirebase, getFirestore }) => {
+    const firebase = getFirebase();
+    const firestore = getFirestore();
+
+    firebase
+      .auth()
+      .createUserWithEmailAndPassword(addUser.email, addUser.password)
+      .then((responce) => {
+        firestore
+          .collection("users")
+          .doc(responce.user.uid)
+          .set({
+            firstName: addUser.firstName,
+            lastName: addUser.lastName,
+            initials: addUser.firstName[0] + addUser.lastName[0],
+            userType: addUser.userType,
+          });
+      })
+      .then((dispatch) => {
+        dispatch({ type: "SIGNUPWithAdmin_SUCCESSFULLY" });
+      })
+      .catch((error) => {
+        dispatch({ type: "SIGNUPWithAdmin_FAILED", error });
       });
   };
 };

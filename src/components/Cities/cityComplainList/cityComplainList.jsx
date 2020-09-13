@@ -9,6 +9,7 @@ const ComplainList = (props) => {
 
   const complainList = props.complains;
   const profiledata = props.profileData;
+  console.log({ profiledata });
 
   return (
     <div className="container section project-detail">

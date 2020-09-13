@@ -38,7 +38,7 @@ const CompalinSummary = (props) => {
           <div className="card z-depth-0">
             {/* <div className="card-content"> */}
             <label>Applicatin Status</label>
-            {props.userCredential.userCategory === "admin" ? (
+            {props.userCredential.userType === "admin" ? (
               <select onChange={onStatusUpdate} style={{ display: "block" }}>
                 <option value="Issue Resolved">Issue Resolved</option>
                 <option value="In Progress">In Progres</option>

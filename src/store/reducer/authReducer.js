@@ -23,6 +23,16 @@ const authReducer = (state = initialState, action) => {
         ...state,
         authenticationError: action.error.message,
       };
+    case "SIGNUPWithAdmin_SUCCESSFULLY":
+      return {
+        ...state,
+        authenticationError: null,
+      };
+    case "SIGNUPWithAdmin_FAILED":
+      return {
+        ...state,
+        authenticationError: action.error.message,
+      };
 
     case "SIGNOUT_SUCCESSFULLY":
       return state;
