@@ -20,3 +20,22 @@ export const addComplain = (complain) => {
       });
   };
 };
+export const upDateComplainStatus = (updateComplain) => {
+  const docId = updateComplain.id;
+  return (dispatch, getState, { getFirebase, getFirestore }) => {
+    const firestore = getFirestore();
+    firestore
+      .collection("Complains")
+      .doc(docId)
+      .update({
+        ...updateComplain,
+        status: updateComplain.status,
+      })
+      .then(() => {
+        dispatch({ type: "UPDATE_COMPALAIN", updateComplain });
+      })
+      .catch((error) => {
+        dispatch({ type: "UPDATE_COMPALAIN_ERROR", error });
+      });
+  };
+};

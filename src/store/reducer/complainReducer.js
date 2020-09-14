@@ -16,6 +16,12 @@ const complainReducer = (state = initialState, action) => {
     case "ADD_COMPLAIN_ERROR":
       console.log("Add complain error", action.error);
       return state;
+    case "UPDATE_COMPALAIN":
+      console.log("Complain Update Sucessfully", action.updateComplain);
+      return state;
+    case "UPDATE_COMPALAIN_ERROR":
+      console.log("Complain Update Unsucessfully", action.error);
+      return state;
     default:
       return state;
   }

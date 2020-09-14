@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-
+import { upDateComplainStatus } from "../../../../store/actions/addComplainAction";
 class CompalinSummary extends Component {
   state = {
     id: "",
@@ -72,7 +72,8 @@ class CompalinSummary extends Component {
 }
 const mapDispatchToProps = (dispatch) => {
   return {
-    upDateComplainStatus: (updatedStatus) => dispatch(upDateComplainStatus()),
+    upDateComplainStatus: (updatedStatus) =>
+      dispatch(upDateComplainStatus(updatedStatus)),
   };
 };
 export default connect(null, mapDispatchToProps)(CompalinSummary);
