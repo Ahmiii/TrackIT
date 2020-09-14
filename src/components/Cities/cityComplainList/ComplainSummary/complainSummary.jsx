@@ -56,7 +56,12 @@ class CompalinSummary extends Component {
                     <option value="Issue Resolved">Issue Resolved</option>
                     <option value="In Progress">In Progres</option>
                   </select>
-                  <button onClick={this.onHandleSubmit}>Submit</button>
+                  <button
+                    className="btn gray lighten-1 z-depth-0"
+                    onClick={this.onHandleSubmit}
+                  >
+                    Submit
+                  </button>
                 </>
               ) : (
                 <p>{this.props.compalinlist.status}</p>
