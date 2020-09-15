@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { addComplain } from "../../../store/actions/addComplainAction";
+import firebase from "../../../config/firebaseConfig";
 import { Redirect } from "react-router-dom";
 
 class AddComplain extends Component {
@@ -9,6 +10,8 @@ class AddComplain extends Component {
     complainType: "",
     title: "",
     content: "",
+    image: null,
+    imageUrl: "",
     status: "Submitted",
   };
 
@@ -32,15 +35,52 @@ class AddComplain extends Component {
     this.props.addComplains(this.state);
     this.props.history.push("/");
   };
+  handleImageAsFile = (e) => {
+    const image = e.target.files[0];
+    this.setState({ setImageAsFile: image });
+  };
+
+  handleUploadImage = () => {
+    const { image } = this.state;
+    const uploadTask = firebase
+      .storage()
+      .ref(`images/${image.name}`)
+      .put(image);
+    uploadTask.on(
+      "state_changed",
+      (error) => {
+        console.log(error);
+      },
+      () => {
+        firebase
+          .storage()
+          .ref("images")
+          .child(image.name)
+          .getDownloadURL()
+          .then((url) => {
+            this.setState({ imageUrl: url });
+          });
+      }
+    );
+  };
 
   render() {
+    console.log(this.state.imageUrl);
+    const complainTypes = ["Complaint", "Crime Report", "Missing Report"];
+    const uploadImage = [];
     const { authentication, Cities } = this.props;
 
     if (!authentication.uid) {
       return <Redirect to="/Signin" />;
     }
-
-    const complainTypes = ["Complaint", "Crime Report", "Missing Report"];
+    if (this.state.complainType === "Crime Report") {
+      uploadImage.push(
+        <>
+          <input type="file" onChange={this.handleImageAsFile}></input>
+          <button onClick={this.handleUploadImage}>upload</button>
+        </>
+      );
+    }
 
     return (
       <div className="container">
@@ -75,6 +115,7 @@ class AddComplain extends Component {
                 return <option value={type}>{type}</option>;
               })}
             </select>
+            {uploadImage}
 
             {/* <input
               type="text"
