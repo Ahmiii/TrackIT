@@ -11,7 +11,7 @@ class AddComplain extends Component {
     title: "",
     content: "",
     image: null,
-    imageUrl: "",
+    url: "",
     status: "Submitted",
   };
 
@@ -37,35 +37,55 @@ class AddComplain extends Component {
   };
   handleImageAsFile = (e) => {
     const image = e.target.files[0];
-    this.setState({ setImageAsFile: image });
+    this.setState({ image });
   };
 
   handleUploadImage = () => {
     const { image } = this.state;
-    const uploadTask = firebase
-      .storage()
-      .ref(`images/${image.name}`)
-      .put(image);
-    uploadTask.on(
+    var storageRef = firebase.storage().ref(`images/${image.name}`);
+    var task = storageRef.put(image);
+    task.on(
       "state_changed",
-      (error) => {
-        console.log(error);
+      function progress(snapshot) {
+        var percentage =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
       },
-      () => {
+      function error(err) {
+        console.log(err);
+      },
+      function complete() {
         firebase
           .storage()
           .ref("images")
           .child(image.name)
           .getDownloadURL()
           .then((url) => {
-            this.setState({ imageUrl: url });
+            console.log(url);
           });
       }
     );
+    // uploadTask.on(
+    //   "state_changed",
+    //   (snapshot) => {},
+    //   (error) => {
+    //     console.log(error);
+    //   },
+    //   () => {
+    //     firebase
+    //       .storage()
+    //       .ref("image")
+    //       .child(image.name)
+    //       .getDownloadURL()
+    //       .then((url) => {
+    //         console.log(url);
+    //         this.setState({ url });
+    //       });
+    //   }
+    // );
   };
 
   render() {
-    console.log(this.state.imageUrl);
+    console.log(this.state.image);
     const complainTypes = ["Complaint", "Crime Report", "Missing Report"];
     const uploadImage = [];
     const { authentication, Cities } = this.props;
@@ -73,7 +93,10 @@ class AddComplain extends Component {
     if (!authentication.uid) {
       return <Redirect to="/Signin" />;
     }
-    if (this.state.complainType === "Crime Report") {
+    if (
+      this.state.complainType === "Crime Report" ||
+      this.state.complainType === "Missing Report"
+    ) {
       uploadImage.push(
         <>
           <input type="file" onChange={this.handleImageAsFile}></input>
